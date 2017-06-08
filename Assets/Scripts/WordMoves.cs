@@ -6,6 +6,8 @@ public class WordMoves : MonoBehaviour {
 
     public float speed;
 
+    public GameObject spawnOrigin;
+
 	// Use this for initialization
 	void Start () {
 		

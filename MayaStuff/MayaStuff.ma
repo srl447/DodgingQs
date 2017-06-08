@@ -1,6 +1,6 @@
 //Maya ASCII 2017ff04 scene
 //Name: MayaStuff.ma
-//Last modified: Mon, Jun 05, 2017 04:32:41 PM
+//Last modified: Mon, Jun 05, 2017 09:45:13 PM
 //Codeset: 1252
 requires maya "2017ff04";
 requires -nodeType "type" -nodeType "shellDeformer" -nodeType "vectorAdjust" -nodeType "typeExtrude"
@@ -15,13 +15,13 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "87F1D8BD-49CC-A6C1-32DA-968B218177FC";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -8.4885645250875985 23.231759147673017 161.98357489567803 ;
+	setAttr ".t" -type "double3" -1.6027388409863936 4.4167561715257451 30.594193809483389 ;
 	setAttr ".r" -type "double3" -8.1383527296025129 -3.00000000000023 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "AC075B90-41BD-FBAC-22C9-C2A21B664A69";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 163.85673495657034;
+	setAttr ".coi" 30.948539593915918;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
