@@ -38,11 +38,15 @@ public class MoveCamera : MonoBehaviour
             Vector3 spawnRot = collision.gameObject.GetComponent<WordMoves>().spawnOrigin.transform.eulerAngles;
 
             //vector rotation matrix to move camera slightly away form person who spawned words
-            float theta = spawnRot.y * Mathf.PI / 180;
+            /*float theta = spawnRot.y * Mathf.PI / 180;
             newPos = new Vector3(0f, 0f, -2f);
             float xPrime = newPos.x * Mathf.Cos(theta) - newPos.z * Mathf.Cos(theta);
             float zPrime = newPos.x * Mathf.Sin(theta) + newPos.z * Mathf.Sin(theta);
-            newPos = spawnPos + new Vector3(xPrime, 0f, zPrime);
+            newPos = spawnPos + new Vector3(xPrime, 0f, zPrime);*/
+
+            //position to move the player at several unity in front
+            //Quaternion.Euler rotates the vector
+            newPos = spawnPos + (Quaternion.Euler(0f, spawnRot.y, 0f)* new Vector3(0f, 0f, 2f));
 
             newRot = spawnRot + new Vector3(0f, 180f, 0f);
 
