@@ -19,11 +19,10 @@ public class Screaming : MonoBehaviour {
             {
                 float thetaOrigin = transform.eulerAngles.y * Mathf.PI / 180; //convert from degrees to radians
                 float theta = i * Mathf.PI / 180; //convert from degrees to radians
-                //theta = -theta; //want to rotate the opposite direction
-                thetaOrigin = -thetaOrigin; //rotate in the direction of the player
-                Vector3 sightAngle = new Vector3(.5f, 0f, .5f); //starting vector
+                thetaOrigin = -thetaOrigin; //rotate in the direction of the enemy
+                Vector3 sightAngle = new Vector3(1f, 0f, 1f); //starting vector
 
-                //Vector Rotation Matrix to match with player rotation
+                //Vector Rotation Matrix to match with enemy rotation
                 float x = sightAngle.x * Mathf.Cos(thetaOrigin) - sightAngle.z * Mathf.Sin(thetaOrigin);
                 float z = sightAngle.x * Mathf.Sin(thetaOrigin) + sightAngle.z * Mathf.Cos(thetaOrigin);
 
