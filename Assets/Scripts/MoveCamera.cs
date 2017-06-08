@@ -10,6 +10,7 @@ public class MoveCamera : MonoBehaviour
     bool moving;
 
     public float speed;
+    float degreesToRotate;
 
     private void Update()
     {
@@ -27,7 +28,7 @@ public class MoveCamera : MonoBehaviour
     {
         if (collision.gameObject.tag == "Words")
         {
-            GetComponent<CharacterController>().enabled = !GetComponent<CharacterController>().enabled;
+            GetComponent<Movement>().enabled = !GetComponent<Movement>().enabled;
             //stores current position/rotation
             oldPos = transform.position;
             oldRot = transform.rotation;
@@ -38,12 +39,12 @@ public class MoveCamera : MonoBehaviour
 
             //vector rotation matrix to move camera slightly away form person who spawned words
             float theta = spawnRot.y * Mathf.PI / 180;
-            newPos = spawnPos + new Vector3(0f, 0f, -1f);
-            float xPrime = spawnPos.x * Mathf.Cos(theta) - spawnPos.z * Mathf.Cos(theta);
-            float zPrime = spawnPos.x * Mathf.Sin(theta) + spawnPos.z * Mathf.Sin(theta);
-            newPos = new Vector3(xPrime, oldPos.y, zPrime);
+            newPos = new Vector3(0f, 0f, -2f);
+            float xPrime = newPos.x * Mathf.Cos(theta) - newPos.z * Mathf.Cos(theta);
+            float zPrime = newPos.x * Mathf.Sin(theta) + newPos.z * Mathf.Sin(theta);
+            newPos = spawnPos + new Vector3(xPrime, 0f, zPrime);
 
-            newRot = spawnRot + new Vector3(0f, 0f, 180f);
+            newRot = spawnRot + new Vector3(0f, 180f, 0f);
 
             moving = true;
             StartCoroutine(CameraRotate());
@@ -51,17 +52,20 @@ public class MoveCamera : MonoBehaviour
     }
     IEnumerator CameraRotate()
     {
-        float degreesToRotate = newRot.z - transform.eulerAngles.y;
-        Debug.Log(degreesToRotate);
-        for (int i = 0; i < Mathf.Abs(degreesToRotate); i++)
+        if(newRot.y > 360)
+        {
+            newRot = newRot - new Vector3(0f, 360f, 0f);
+        }
+        degreesToRotate = newRot.y - transform.eulerAngles.y;
+        for (int i = 0; i < Mathf.Abs(degreesToRotate); i+=2)
         {
             if (degreesToRotate > 0)
             {
-                transform.Rotate(0f, 1f, 0f);
+                transform.Rotate(0f, 2f, 0f);
             }
             else
             {
-                transform.Rotate(0f, -1f, 0f);
+                transform.Rotate(0f, -2f, 0f);
             }
             yield return new WaitForEndOfFrame();
         }
