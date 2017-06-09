@@ -20,6 +20,7 @@ public class MoveCamera : MonoBehaviour
             if (transform.position == newPos)
             {
                 moving = false;
+                GameManager.isTyping = true;
             }
         }
     }
@@ -37,32 +38,32 @@ public class MoveCamera : MonoBehaviour
             Vector3 spawnPos = collision.gameObject.GetComponent<WordMoves>().spawnOrigin.transform.position;
             Vector3 spawnRot = collision.gameObject.GetComponent<WordMoves>().spawnOrigin.transform.eulerAngles;
 
-            //vector rotation matrix to move camera slightly away form person who spawned words
-            /*float theta = spawnRot.y * Mathf.PI / 180;
-            newPos = new Vector3(0f, 0f, -2f);
-            float xPrime = newPos.x * Mathf.Cos(theta) - newPos.z * Mathf.Cos(theta);
-            float zPrime = newPos.x * Mathf.Sin(theta) + newPos.z * Mathf.Sin(theta);
-            newPos = spawnPos + new Vector3(xPrime, 0f, zPrime);*/
-
             //position to move the player at several unity in front
             //Quaternion.Euler rotates the vector
             newPos = spawnPos + (Quaternion.Euler(0f, spawnRot.y, 0f)* new Vector3(0f, 0f, 2f));
 
-            newRot = spawnRot + new Vector3(0f, 180f, 0f);
+            newRot = spawnRot + new Vector3(0f, 180f, 0f); //player needs to face person
 
+            //starts the movement
             moving = true;
             StartCoroutine(CameraRotate());
         }
     }
+
+    //rotates the camera
     IEnumerator CameraRotate()
     {
         if(newRot.y > 360)
         {
-            newRot = newRot - new Vector3(0f, 360f, 0f);
+            newRot = newRot - new Vector3(0f, 360f, 0f); //stops it from doing more than 1 rotation
         }
-        degreesToRotate = newRot.y - transform.eulerAngles.y;
+
+        degreesToRotate = newRot.y - transform.eulerAngles.y; //figures out how many degrees player needs to rotate
+
+        //rotates the player
         for (int i = 0; i < Mathf.Abs(degreesToRotate); i+=2)
         {
+            //checks which direction to rotate
             if (degreesToRotate > 0)
             {
                 transform.Rotate(0f, 2f, 0f);
