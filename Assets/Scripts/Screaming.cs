@@ -15,12 +15,12 @@ public class Screaming : MonoBehaviour {
         if (!hasScreamed) //checking to see if they have sent out words yet
         {
             //Draws array in a quarter circle infront of person
-            for (int i = 0; i < 90; i += 9)
+            for (int i = 0; i < 60; i += 6)
             {
                 float thetaOrigin = transform.eulerAngles.y * Mathf.PI / 180; //convert from degrees to radians
                 float theta = i * Mathf.PI / 180; //convert from degrees to radians
                 thetaOrigin = -thetaOrigin; //rotate in the direction of the enemy
-                Vector3 sightAngle = new Vector3(1f, 0f, 1f); //starting vector
+                Vector3 sightAngle = new Vector3(1f, 0f, 2f); //starting vector
 
                 //Vector Rotation Matrix to match with enemy rotation
                 float x = sightAngle.x * Mathf.Cos(thetaOrigin) - sightAngle.z * Mathf.Sin(thetaOrigin);
@@ -35,10 +35,10 @@ public class Screaming : MonoBehaviour {
                 Ray sight = new Ray(transform.position, sightAngle); //creates ray
                 RaycastHit sightHit = new RaycastHit(); //variable to store ray information
 
-                Debug.DrawRay(sight.origin, sight.direction * 18f, Color.yellow); //draws a raycast in the editor
+                Debug.DrawRay(sight.origin, sight.direction * 10f, Color.yellow); //draws a raycast in the editor
 
                 //spawns words if player enters sights
-                if (Physics.Raycast(sight, out sightHit, 18f, playerMask))
+                if (Physics.Raycast(sight, out sightHit, 10f, playerMask))
                 {
                     GameObject newWord = Instantiate(word) as GameObject;
                     newWord.GetComponent<WordMoves>().spawnOrigin = gameObject; //stores what Game Object spawned it

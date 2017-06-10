@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class MoveCamera : MonoBehaviour 
 {
-    Vector3 oldPos, newPos, newRot;
-    Quaternion oldRot;
+    //Vector3 oldPos;
+    Vector3 newRot, newPos;
+    //Quaternion oldRot;
     
     bool moving;
 
-    public float speed;
+    public float speed, healthLoss;
     float degreesToRotate;
+    
 
     private void Update()
     {
         if (moving)
         {
-            transform.position = Vector3.MoveTowards(transform.position, newPos, speed * Time.deltaTime);
-            if (transform.position == newPos)
+            transform.position = Vector3.MoveTowards(transform.position, newPos, speed * Time.deltaTime); //moves player to enemy
+            if (transform.position == newPos) //stops when the player arrives
             {
                 moving = false;
                 GameManager.isTyping = true;
             }
+            GameManager.playerHealth = -healthLoss * Time.deltaTime; //decreases health
         }
     }
 
@@ -31,8 +34,8 @@ public class MoveCamera : MonoBehaviour
         {
             GetComponent<Movement>().enabled = !GetComponent<Movement>().enabled;
             //stores current position/rotation
-            oldPos = transform.position;
-            oldRot = transform.rotation;
+           // oldPos = transform.position;
+            //oldRot = transform.rotation;
 
             //grabs the location/rotation of the person who spawned words
             Vector3 spawnPos = collision.gameObject.GetComponent<WordMoves>().spawnOrigin.transform.position;

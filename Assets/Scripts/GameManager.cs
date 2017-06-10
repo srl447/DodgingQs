@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool isTyping;
+    public static bool isTyping; //starts typing stream
+    public static float playerHealth; //player's health 
 	
 }
